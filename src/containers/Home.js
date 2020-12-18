@@ -181,34 +181,54 @@
 // );
 // export default HomepageLayout;
 
-import { CarouselProvider, Image, Slide, Slider } from "pure-react-carousel";
-import React from "react";
-import { Divider } from "semantic-ui-react";
+import React from 'react';
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import './Home.css';
 
-import CustomDotGroup from "./CustomDotGroup";
 
-const HomepageLayout = () => (
-  <CarouselProvider
-    naturalSlideWidth={1}
-    naturalSlideHeight={1}
-    totalSlides={3}
-  >
-    <Slider>
-      <Slide tag="a" index={0}>
-        <Image src="" />
-      </Slide>
-      <Slide tag="a" index={1}>
-        <Image src="https://st4.depositphotos.com/10504788/20544/i/1600/depositphotos_205444352-stock-photo-fashion-background-woman-summer-clothes.jpg" />
-      </Slide>
-      <Slide tag="a" index={2}>
-        <Image src="https://freedesignfile.com/upload/2016/09/Girl-with-fashion-background-design-vector-03.jpg" />
-      </Slide>
-    </Slider>
+const slideImages = [
+  'https://st4.depositphotos.com/10504788/20544/i/1600/depositphotos_205444352-stock-photo-fashion-background-woman-summer-clothes.jpg',
+  'https://st4.depositphotos.com/10504788/20544/i/1600/depositphotos_205444352-stock-photo-fashion-background-woman-summer-clothes.jpg',
+  'https://st4.depositphotos.com/10504788/20544/i/1600/depositphotos_205444352-stock-photo-fashion-background-woman-summer-clothes.jpg'
+];
 
-    <Divider />
-    <CustomDotGroup slides={3} />
-  </CarouselProvider>
-);
+const properties = {
+  duration: 5000,
+  transitionDuration: 1000,
+  infinite: true,
+  indicators: true,
+  arrows: true
+}
 
+const HomepageLayout = () => {
+  return (
+    <div className="slide-container">
+    <Slide {...properties}>
+          <div className="each-slide">
+            <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
+            </div>
+          </div>
+          <div className="each-slide">
+            <div style={{'backgroundImage': `url(${slideImages[1]})`}}>
+            </div>
+          </div>
+          <div className="each-slide">
+            <div style={{'backgroundImage': `url(${slideImages[2]})`}}>
+            </div>
+          </div>
+        </Slide>
+
+      {/* <Zoom {...zoomInProperties}>
+        {images.map((each, index) => (
+          <div key={index} style={{width: "100hv"}}>
+            <img style={{ objectFit: "cover", width: "100hv" }} src={each} />
+          </div>
+        ))}
+      </Zoom> */}
+    </div>
+  )
+}
 export default HomepageLayout;
+
 

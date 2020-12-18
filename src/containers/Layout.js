@@ -24,19 +24,22 @@ class CustomLayout extends React.Component {
     const { authenticated, cart, loading } = this.props;
     return (
       <div>
-        <Menu inverted style={{ backgroundColor: '#00796B', height: '100px' }}>
+        <Menu inverted style={{ backgroundColor: '#00b5ad', height: '70px' }}>
           <Container >
             <Link to="/">
-              <Menu.Item header>RAWNAQ</Menu.Item>
+              <Image src="../media/logo.png" style={{margin:'10px'}}></Image>
+            </Link>
+            <Link to="/">
+              <Menu.Item header style={{margin:'10px'}}>RAWNAQ</Menu.Item>
             </Link>
             <Link to="/products">
-              <Menu.Item header>Products</Menu.Item>
+              <Menu.Item header style={{margin:'10px'}}>Products</Menu.Item>
             </Link>
             {authenticated ? (
               <React.Fragment>
                 <Menu.Menu position="right">
                   <Link to="/profile">
-                    <Menu.Item>Profile</Menu.Item>
+                    <Menu.Item style={{margin:'10px'}}>Profile</Menu.Item>
                   </Link>
                   <Dropdown
                     icon="cart"
@@ -73,7 +76,7 @@ class CustomLayout extends React.Component {
                       )}
                     </Dropdown.Menu>
                   </Dropdown>
-                  <Menu.Item header onClick={() => this.props.logout()}>
+                  <Menu.Item header onClick={() => this.props.logout()} style={{margin:'10px'}}>
                     Logout
                   </Menu.Item>
                 </Menu.Menu>
@@ -81,10 +84,10 @@ class CustomLayout extends React.Component {
             ) : (
               <Menu.Menu position="right">
                 <Link to="/login">
-                  <Menu.Item header>Signin</Menu.Item>
+                  <Menu.Item header style={{margin:'10px'}}>Signin</Menu.Item>
                 </Link>
                 <Link to="/signup">
-                  <Menu.Item header>Signup</Menu.Item>
+                  <Menu.Item header style={{margin:'10px'}}>Signup</Menu.Item>
                 </Link>
               </Menu.Menu>
             )}
@@ -96,37 +99,37 @@ class CustomLayout extends React.Component {
         <Segment
           inverted
           vertical
-          style={{ margin: "5em 0em 0em", padding: "5em 0em", backgroundColor: '#00796B' }}
+          style={{ margin: "5em 0em 0em", padding: "5em 0em", backgroundColor: '#00b5ad' }}
         >
           <Container textAlign="center">
             <Grid divided inverted stackable>
-              <Grid.Column width={3}>
+              {/* <Grid.Column width={3}>
                 <Header inverted as="h4" content="Group 1" />
-                {/* <List link inverted>
+                <List link inverted>
                   <List.Item as="a">Link One</List.Item>
                   <List.Item as="a">Link Two</List.Item>
                   <List.Item as="a">Link Three</List.Item>
                   <List.Item as="a">Link Four</List.Item>
-                </List> */}
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <Header inverted as="h4" content="Group 2" />
-                {/* <List link inverted>
+                </List>
+              </Grid.Column> */}
+              {/*<Grid.Column width={3}>
+                {/* <Header inverted as="h4" content="Group 2" />
+                <List link inverted>
                   <List.Item as="a">Link One</List.Item>
                   <List.Item as="a">Link Two</List.Item>
                   <List.Item as="a">Link Three</List.Item>
                   <List.Item as="a">Link Four</List.Item>
-                </List> */}
-              </Grid.Column>
-              <Grid.Column width={3}>
+                </List>
+              </Grid.Column> */}
+              {/* <Grid.Column width={3}>
                 <Header inverted as="h4" content="Group 3" />
-                {/* <List link inverted>
+                <List link inverted>
                   <List.Item as="a">Link One</List.Item>
                   <List.Item as="a">Link Two</List.Item>
                   <List.Item as="a">Link Three</List.Item>
                   <List.Item as="a">Link Four</List.Item>
-                </List> */}
-              </Grid.Column>
+                </List>
+              </Grid.Column> */}
               {/* <Grid.Column width={7}>
                 <Header inverted as="h4" content="Footer Header" />
                 <p>
