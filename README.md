@@ -1,0 +1,3 @@
+npm intall
+npm start
+
