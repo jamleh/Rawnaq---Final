@@ -118,7 +118,7 @@ class OrderSummary extends React.Component {
           <Message
             error
             header="There was an error"
-            content={JSON.stringify(error)}
+          // content={JSON.stringify(error)}
           />
         )}
         {loading && (

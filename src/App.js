@@ -5,6 +5,7 @@ import BaseRouter from "./routes";
 import * as actions from "./store/actions/auth";
 import "semantic-ui-css/semantic.min.css";
 import CustomLayout from "./containers/Layout";
+import Feedback from "./feedback";
 
 class App extends Component {
   componentDidMount() {
@@ -15,6 +16,7 @@ class App extends Component {
     return (
       <Router>
         <CustomLayout {...this.props}>
+          <Feedback />
           <BaseRouter />
         </CustomLayout>
       </Router>
@@ -34,4 +36,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

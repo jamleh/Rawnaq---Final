@@ -248,7 +248,7 @@ class AddressForm extends React.Component {
           <Message
             error
             header="There was an error"
-            content={JSON.stringify(error)}
+          // content={JSON.stringify(error)}
           />
         )}
         <Form.Button disabled={saving} loading={saving} primary>
@@ -438,7 +438,7 @@ class Profile extends React.Component {
               <Message
                 error
                 header="There was an error"
-                content={JSON.stringify(error)}
+              // content={JSON.stringify(error)}
               />
             )}
             {loading && (
@@ -477,8 +477,8 @@ class Profile extends React.Component {
             {activeItem === "paymentHistory" ? (
               <PaymentHistory />
             ) : (
-              this.renderAddresses()
-            )}
+                this.renderAddresses()
+              )}
           </Grid.Column>
         </Grid.Row>
       </Grid>

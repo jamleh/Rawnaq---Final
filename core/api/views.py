@@ -5,19 +5,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from rest_framework.generics import (
-    ListAPIView, RetrieveAPIView, CreateAPIView,
-    UpdateAPIView, DestroyAPIView
-)
+from rest_framework.generics import (ListAPIView, RetrieveAPIView, CreateAPIView,UpdateAPIView, DestroyAPIView)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from core.models import Item, OrderItem, Order
-from .serializers import (
-    ItemSerializer, OrderSerializer, ItemDetailSerializer, AddressSerializer,
-    PaymentSerializer
-)
+from .serializers import (ItemSerializer, OrderSerializer, ItemDetailSerializer, AddressSerializer,PaymentSerializer)
 from core.models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile, Variation, ItemVariation
 
 
@@ -47,7 +41,8 @@ class OrderQuantityUpdateView(APIView):
     def post(self, request, *args, **kwargs):
         slug = request.data.get('slug', None)
         if slug is None:
-            return Response({"message": "Invalid data"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Invalid data"})
+            # , status=HTTP_400_BAD_REQUEST)
         item = get_object_or_404(Item, slug=slug)
         order_qs = Order.objects.filter(
             user=request.user,
@@ -71,7 +66,8 @@ class OrderQuantityUpdateView(APIView):
             else:
                 return Response({"message": "This item was not in your cart"}, status=HTTP_400_BAD_REQUEST)
         else:
-            return Response({"message": "You do not have an active order"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "You do not have an active order"})
+            # , status=HTTP_400_BAD_REQUEST)
 
 
 class OrderItemDeleteView(DestroyAPIView):
@@ -84,13 +80,15 @@ class AddToCartView(APIView):
         slug = request.data.get('slug', None)
         variations = request.data.get('variations', [])
         if slug is None:
-            return Response({"message": "Invalid request"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Invalid request"})
+            # , status=HTTP_400_BAD_REQUEST)
 
         item = get_object_or_404(Item, slug=slug)
 
         minimum_variation_count = Variation.objects.filter(item=item).count()
         if len(variations) < minimum_variation_count:
-            return Response({"message": "Please specify the required variation types"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Please specify the required variation types"})
+            # , status=HTTP_400_BAD_REQUEST)
 
         order_item_qs = OrderItem.objects.filter(
             item=item,
@@ -140,7 +138,8 @@ class OrderDetailView(RetrieveAPIView):
             return order
         except ObjectDoesNotExist:
             raise Http404("You do not have an active order")
-            # return Response({"message": "You do not have an active order"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "You do not have an active order"})
+            # , status=HTTP_400_BAD_REQUEST)
 
 
 class PaymentView(APIView):
@@ -212,12 +211,14 @@ class PaymentView(APIView):
         except stripe.error.CardError as e:
             body = e.json_body
             err = body.get('error', {})
-            return Response({"message": f"{err.get('message')}"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": f"{err.get('message')}"})
+            # , status=HTTP_400_BAD_REQUEST)
 
         except stripe.error.RateLimitError as e:
             # Too many requests made to the API too quickly
             messages.warning(self.request, "Rate limit error")
-            return Response({"message": "Rate limit error"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Rate limit error"})
+            # , status=HTTP_400_BAD_REQUEST)
 
         except stripe.error.InvalidRequestError as e:
             print(e)
@@ -227,11 +228,13 @@ class PaymentView(APIView):
         except stripe.error.AuthenticationError as e:
             # Authentication with Stripe's API failed
             # (maybe you changed API keys recently)
-            return Response({"message": "Not authenticated"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Not authenticated"})
+            # , status=HTTP_400_BAD_REQUEST)
 
         except stripe.error.APIConnectionError as e:
             # Network communication with Stripe failed
-            return Response({"message": "Network error"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Network error"})
+            # , status=HTTP_400_BAD_REQUEST)
 
         except stripe.error.StripeError as e:
             # Display a very generic error to the user, and maybe send
@@ -240,7 +243,8 @@ class PaymentView(APIView):
 
         except Exception as e:
             # send an email to ourselves
-            return Response({"message": "A serious error occurred. We have been notifed."}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "A serious error occurred. We have been notifed."})
+            # , status=HTTP_400_BAD_REQUEST)
 
         return Response({"message": "Invalid data received"}, status=HTTP_400_BAD_REQUEST)
 
@@ -249,7 +253,8 @@ class AddCouponView(APIView):
     def post(self, request, *args, **kwargs):
         code = request.data.get('code', None)
         if code is None:
-            return Response({"message": "Invalid data received"}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Invalid data received"})
+            # , status=HTTP_400_BAD_REQUEST)
         order = Order.objects.get(
             user=self.request.user, ordered=False)
         coupon = get_object_or_404(Coupon, code=code)

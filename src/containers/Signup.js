@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import { authSignup } from "../store/actions/auth";
+// import $ from 'jquery';
 
 class RegistrationForm extends React.Component {
   state = {
@@ -35,6 +36,11 @@ class RegistrationForm extends React.Component {
     if (token) {
       return <Redirect to="/" />;
     }
+    if (error) {
+
+      document.getElementById("matchPass").innerHTML = "<div class='alert alert-warning' role='alert'> Error input data</div>"
+
+    }
     return (
       <Grid
         textAlign="center"
@@ -42,7 +48,7 @@ class RegistrationForm extends React.Component {
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h2" color="teal" textAlign="center">
+          <Header as="h2" color="black" textAlign="center">
             Signup to your account
           </Header>
           {error && <p>{this.props.error.message}</p>}
@@ -90,7 +96,7 @@ class RegistrationForm extends React.Component {
                 />
 
                 <Button
-                  color="teal"
+                  color="black"
                   fluid
                   size="large"
                   loading={loading}
@@ -100,10 +106,12 @@ class RegistrationForm extends React.Component {
                 </Button>
               </Segment>
             </Form>
+            <h4 id="matchPass"></h4>
             <Message>
               Already have an account? <NavLink to="/login">Login</NavLink>
             </Message>
           </React.Fragment>
+
         </Grid.Column>
       </Grid>
     );

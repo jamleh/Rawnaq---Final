@@ -15,6 +15,9 @@ import string
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+class HomeView(ListView):
+    model = Item
+    template_name = "home.html"
 
 def create_ref_code():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))

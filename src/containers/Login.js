@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Message,
-  Segment
-} from "semantic-ui-react";
+import { Button, Form, Grid, Header, Message, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
@@ -33,6 +26,11 @@ class LoginForm extends React.Component {
     if (token) {
       return <Redirect to="/" />;
     }
+
+    if (error) {
+      document.getElementById("matchPass1").innerHTML = "<div class='alert alert-warning' role='alert'> Error input data</div>"
+
+    }
     return (
       <Grid
         textAlign="center"
@@ -40,7 +38,7 @@ class LoginForm extends React.Component {
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h2" color="teal" textAlign="center">
+          <Header as="h2" color="black" textAlign="center">
             Log-in to your account
           </Header>
           {error && <p>{this.props.error.message}</p>}
@@ -69,7 +67,7 @@ class LoginForm extends React.Component {
                 />
 
                 <Button
-                  color="teal"
+                  color="black"
                   fluid
                   size="large"
                   loading={loading}
@@ -79,6 +77,7 @@ class LoginForm extends React.Component {
                 </Button>
               </Segment>
             </Form>
+            <h3 id="matchPass1"></h3>
             <Message>
               New to us? <NavLink to="/signup">Sign Up</NavLink>
             </Message>

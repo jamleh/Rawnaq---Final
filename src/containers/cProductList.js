@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-///asd
 import {
   Container,
   Dimmer,
@@ -16,7 +15,7 @@ import { productListURL, addToCartURL } from "../constants";
 import { fetchCart } from "../store/actions/cart";
 import { authAxios } from "../utils";
 
-class ProductList extends React.Component {
+class cProductList extends React.Component {
   state = {
     loading: false,
     error: null,
@@ -30,11 +29,13 @@ class ProductList extends React.Component {
       .then(res => {
         this.setState({
           data: res.data.filter((data) =>
-            data.category === 'Womem')
+            data.category === 'Child')
 
           , loading: false
         });
         console.log(res.data)
+
+
       })
       .catch(err => {
         this.setState({ error: err, loading: false });
@@ -57,11 +58,14 @@ class ProductList extends React.Component {
   render() {
     const { data, error, loading } = this.state;
     return (
+
       <Container>
+
+
         {error && (
           <Message
             error
-            header="There was some errors with your submission"
+            header="You have to login First"
           //content={JSON.stringify(error)}
           />
         )}
@@ -136,4 +140,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(ProductList);
+)(cProductList);
